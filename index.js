@@ -19,9 +19,9 @@ import {
 // ---------- BACKGROUND MUSIC TRACKS ----------
 // Use RAW GitHub URLs, not normal page URLs
 const musicTracks = [
-  "https://raw.githubusercontent.com/jinho72/Animi/bb2abe03a1617f20c3ca1579a15dde94130b5ad2/meditation-music-338902.mp3",
-  "https://raw.githubusercontent.com/jinho72/Animi/bb2abe03a1617f20c3ca1579a15dde94130b5ad2/meditation-background-409198.mp3",
-  "https://raw.githubusercontent.com/jinho72/Animi/bb2abe03a1617f20c3ca1579a15dde94130b5ad2/meditation-background-434654.mp3"
+  https://cdn.jsdelivr.net/gh/jinho72/Animi/main/meditation-music-338902.mp3,
+  https://cdn.jsdelivr.net/gh/jinho72/Animi/main/meditation-background-409198.mp3,
+  https://cdn.jsdelivr.net/gh/jinho72/Animi/main/meditation-background-434654.mp3
 ];
 
 // ---------- DOM ELEMENTS ----------
