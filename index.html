@@ -1,45 +1,102 @@
-<!-- Copyright 2023 The MediaPipe Authors.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Animi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-     http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License. -->
-
-<link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
-<script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
-
-<h1>Segmenting images using the MediaPipe Image Segmentation Task</h1>
-
-<section id="demos" class="invisible">
-  <h2>Demo: Segmenting Images</h2>
-  <p><b>Click on an image below</b> to see its Segmentation.</p>
-  <div class="segmentOnClick">
-    <canvas class="removed"></canvas>
-    <img src="https://assets.codepen.io/9177687/dog_flickr_publicdomain.jpeg" crossorigin="anonymous" title="Click to get segmentation!" />
-        <p class="classification removed">
+  <!-- Our CSS -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Big glowing background blobs -->
+  <div class="bg-orbs">
+    <div class="orb orb-purple"></div>
+    <div class="orb orb-blue"></div>
+    <div class="orb orb-pink"></div>
   </div>
-  <div class="segmentOnClick">
-    <canvas class="removed"></canvas>
-    <img src="https://assets.codepen.io/9177687/cat_flickr_publicdomain.jpeg" crossorigin="anonymous" title="Click to get segmentation!" />
-        <p class="classification removed">
+<!-- audio tag -->
+  <audio id="bgMusic" loop></audio>
+  
+  <!-- Main app container -->
+  <div class="app">
+    <!-- App header -->
+    <header class="header">
+      <h1 class="title">Animi</h1>
+      <p class="subtitle"> bring minds, change minds</p>
+    </header>
+
+    <!-- Main content -->
+    <main class="main">
+      <!-- Lotus + webcam + instruction text -->
+      <section class="lotus-wrapper">
+        <!-- Webcam video as background layer (your face) -->
+        <video
+          id="webcam"
+          class="webcam lotus-video"
+          autoplay
+          playsinline
+          muted
+        ></video>
+
+        <!-- Three.js renders into this container (above the video) -->
+        <div id="lotusContainer" class="lotus-container"></div>
+
+        <!-- Instruction text overlayed on top of everything -->
+        <div class="lotus-overlay">
+          <p id="instructionText" class="instruction">Start Meditation</p>
+          <p id="cycleText" class="cycle-text"></p>
+          <p id="faceStatus" class="face-status">
+            Click "Enable Camera" to start face detection.
+          </p>
+        </div>
+      </section>
+
+      <!-- Controls section -->
+      <section class="controls">
+        <div class="button-row">
+          <!-- Start / Pause breathing -->
+          <button id="breathToggleBtn" class="btn round primary">
+            ▶ Start Breathing
+          </button>
+
+          <!-- Show/hide breathing modes -->
+          <button id="settingsToggleBtn" class="btn round">
+            Modes
+          </button>
+
+          <!-- Enable webcam + face detection -->
+          <button id="cameraBtn" class="btn round">
+           Enable Camera
+          </button>
+          
+           <button id ="musicbtn" class="btn round">
+          sound off
+          </button>
+        </div>
+        
+      <!-- Background Music -->
+        <audio id ="bgMusic" loop></audio>
+        
+      
+
+        <!-- Breathing mode buttons -->
+        <div id="modeButtons" class="mode-buttons hidden">
+          <button class="btn mode-btn active" data-mode="balance">
+            Balance<br /><span class="mode-small">4–4–4</span>
+          </button>
+          <button class="btn mode-btn" data-mode="calm">
+            Calm<br /><span class="mode-small">4–7–8</span>
+          </button>
+          <button class="btn mode-btn" data-mode="energize">
+            Energize<br /><span class="mode-small">4–4–2</span>
+          </button>
+        </div>
+      </section>
+    </main>
   </div>
 
-  <h2>Demo: Webcam continuous segmentation</h2>
-  <p>Hold some objects up close to your webcam to get real-time segmentation.</br>Click <b>enable webcam</b> below and grant access to the webcam if prompted.</p>
-
-  <div class="webcam">
-    <button id="webcamButton" class="mdc-button mdc-button--raised">
-      <span class="mdc-button__ripple"></span>
-      <span class="mdc-button__label">ENABLE WEBCAM</span>
-    </button>
-    <video id="webcam" autoplay style="display: none;"></video>
-    <canvas id="canvas" width="1280px" height="720px"></canvas>
-  </div>
-</section>
+  <!-- Our JS as an ES module -->
+  <script type="module" src="script.js"></script>
+</body>
+</html>
