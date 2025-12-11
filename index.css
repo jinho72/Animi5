@@ -1,890 +1,111 @@
-/* ========= Basic reset & global styles ========= */
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
+*, *::before, *::after { box-sizing: border-box; }
 body {
-  margin: 0;
-  min-height: 100vh;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    sans-serif;
-  background: radial-gradient(circle at top, #020617 0, #020617 60%, #000 100%);
-  color: #e5e7eb;
-  overflow: hidden;
+  margin: 0; min-height: 100vh; font-family: system-ui, -apple-system, sans-serif;
+  /* Updated Background to Cool Teals/Blues */
+  background: radial-gradient(circle at top, #e0f7fa 0%, #b2ebf2 60%, #80deea 100%);
+  color: #FF0000; overflow: hidden;
 }
 
-/* ========= Glowing background blobs ========= */
-
-.bg-orbs {
-  position: fixed;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-  z-index: 0;
-}
-.detectionMessege {
-  position: fixed;
-  overflow: hidden;
-  z-index: 0;
-  font-family: "Helvetica";
-  font-size: 190px;
-  font-weight: bold;
-  
+.bg-orbs { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+.detectionMessage {
+  position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  z-index: 0; font-family: "Helvetica", sans-serif; font-size: 15vw;
+  font-weight: bold; color: rgba(0, 96, 100, 0.03); pointer-events: none; white-space: nowrap;
 }
 
 .orb {
-  position: absolute;
-  border-radius: 9999px;
-  filter: blur(60px);
-  opacity: 0.3;
-  animation: orbPulse 10s ease-in-out infinite alternate;
+  position: absolute; border-radius: 9999px; filter: blur(90px); opacity: 0.6;
+  transition: transform 0.1s linear; animation: orbPulse 10s ease-in-out infinite alternate;
 }
-
-.orb-purple {
-  width: 26rem;
-  height: 26rem;
-  background: #a855f7;
-  top: 15%;
-  left: 15%;
-}
-
-.orb-blue {
-  width: 26rem;
-  height: 26rem;
-  background: #38bdf8;
-  bottom: 15%;
-  right: 15%;
-  animation-duration: 12s;
-  animation-delay: 2s;
-}
-
-.orb-pink {
-  width: 18rem;
-  height: 18rem;
-  background: #ec4899;
-  top: 50%;
-  right: 30%;
-  animation-duration: 14s;
-  animation-delay: 4s;
-}
+/* Updated Orb Colors to Teal/Cyan */
+.orb-teal { width: 30rem; height: 30rem; background: #4dd0e1; top: 10%; left: 10%; }
+.orb-cyan { width: 30rem; height: 30rem; background: #00bcd4; bottom: 10%; right: 10%; animation-delay: 2s; }
+.orb-blue { width: 20rem; height: 20rem; background: #0097a7; top: 40%; right: 25%; animation-delay: 4s; }
 
 @keyframes orbPulse {
-  0% {
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-  100% {
-    transform: translate3d(20px, -20px, 0) scale(1.05);
-  }
+  0% { transform: scale(1); } 100% { transform: scale(1.1) translate(20px, -20px); }
 }
-
-/* ========= App layout ========= */
 
 .app {
-  position: relative;
-  z-index: 1;
-  min-height: 100vh;
-  padding: 2rem 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  position: relative; z-index: 5; min-height: 100vh; padding: 2rem 1rem;
+  display: flex; flex-direction: column; align-items: center; pointer-events: none;
 }
-
-/* Header */
-
-.header {
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
-.title {
-  font-size: 3rem;
-  font-weight: 300;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: #f9fafb;
-  margin: 0 0 0.25rem;
-}
-
-.subtitle {
-  margin: 0;
-  font-size: 0.9rem;
-  color: #9ca3af;
-}
-
-/* Main */
-
-.main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.5rem;
-}
-
-/* ========= Lotus container ========= */
+.header { text-align: center; margin-bottom: 2rem; position: relative; z-index: 10; pointer-events: auto; }
+.title { font-size: 3rem; font-weight: 300; letter-spacing: 0.2em; text-transform: uppercase; margin: 0; color: #006064; }
+.subtitle { margin: 0.5rem 0 0; color: #00838f; font-size: 0.9rem; }
+.main { display: flex; flex-direction: column; align-items: center; gap: 2rem; pointer-events: auto; }
 
 .lotus-wrapper {
-  position: relative;
-  width: 22rem;
-  height: 22rem;
-  max-width: 90vw;
+  position: relative; width: 26rem; height: 26rem; max-width: 90vw;
+  display: flex; justify-content: center; align-items: center; z-index: 5;
 }
-
-/* Webcam video as the bottom circular layer */
-.webcam {
-  display: block;
+.droplet-layer {
+  position: absolute; border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  transition: border-radius 1s ease; overflow: hidden;
 }
-
-.lotus-video {
-  position: absolute;
-  inset: 0;              /* fill the wrapper */
-  width: 100%;
-  height: 100%;
-  object-fit: cover;     /* crop nicely into the circle */
-  transform: scaleX(-1); /* mirror like a selfie */
-  border-radius: 9999px; /* circular */
-  filter: brightness(1.05) contrast(1.05);
-  z-index: 1;            /* bottom layer */
+.glass-back {
+  width: 110%; height: 110%; background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(10px); z-index: 1; opacity: 0.6; box-shadow: 0 0 40px rgba(0, 188, 212, 0.2);
 }
-
-/* 3D lotus canvas layer (middle layer, above video) */
+.video-core {
+  width: 100%; height: 100%; z-index: 2; background: #003333; /* Dark Teal Base */
+  box-shadow: inset 0 0 20px rgba(0,0,0,0.3);
+}
+.glass-front {
+  width: 100%; height: 100%; z-index: 3;
+  background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 50%);
+  mix-blend-mode: overlay; pointer-events: none;
+  box-shadow: inset 10px 10px 20px rgba(255, 255, 255, 0.8), inset -10px -10px 20px rgba(0, 0, 0, 0.1);
+}
+.fluid-anim-slow { animation: morph 12s ease-in-out infinite; }
+.fluid-anim-main { animation: morph 8s ease-in-out infinite reverse; }
+.fluid-anim-fast { animation: morph 6s ease-in-out infinite; }
+@keyframes morph {
+  0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; transform: rotate(0deg); }
+  50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; transform: rotate(2deg); }
+  100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; transform: rotate(0deg); }
+}
+.webcam-canvas { width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1); }
+.webcam-hidden { display: none; }
+.shine-inner {
+  position: absolute; top: 10%; right: 10%; width: 20%; height: 20%;
+  background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, transparent 70%);
+  filter: blur(5px); pointer-events: none;
+}
 .lotus-container {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 9999px;
-  background: transparent; /* IMPORTANT: no gradient so video shows through */
-  border: 1px solid rgba(148, 163, 184, 0.4);
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7);
-  overflow: hidden;
-  z-index: 2; /* above video, below text */
+  position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 50; pointer-events: none;
 }
-
-/* Three.js canvas fits this container */
-.lotus-container canvas {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
-/* Text overlay on top of everything */
 .lotus-overlay {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
-  text-align: center;
-  z-index: 3; /* top layer */
+  position: absolute; inset: 0; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; pointer-events: none; z-index: 60; text-align: center;
 }
+.instruction { font-size: 1.8rem; font-weight: 300; margin: 0; color: #006064; text-shadow: 0 0 20px rgba(255,255,255,0.8); }
+.cycle-text { font-size: 1rem; color: #00838f; margin: 0.2rem 0; }
+.face-status { margin-top: 1rem; font-size: 0.8rem; color: #0097a7; }
 
-.instruction {
-  font-size: 1.5rem;
-  font-weight: 300;
-  color: #f9fafb;
-  margin: 0 0 0.3rem;
+/* CONTROLS */
+.controls { 
+  position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%); z-index: 100;
+  display: flex; flex-direction: column; align-items: center; gap: 1rem; 
+  background: rgba(255, 255, 255, 0.35); backdrop-filter: blur(20px); padding: 1rem 1.5rem;
+  border-radius: 2rem; border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 10px 40px rgba(0, 96, 100, 0.1); width: auto; max-width: 90vw; pointer-events: auto;
 }
-
-.cycle-text {
-  margin: 0;
-  font-size: 0.9rem;
-  color: #9ca3af;
-}
-
-.face-status {
-  margin-top: 0.75rem;
-  font-size: 0.75rem;
-  color: #94a3b8;
-}
-
-/* ========= Controls ========= */
-
-.controls {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.button-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  justify-content: center;
-}
-
-/* Buttons */
-
+.button-row { display: flex; flex-wrap: wrap; gap: 0.8rem; justify-content: center; }
 .btn {
-  font: inherit;
-  border-radius: 9999px;
-  border: 1px solid rgba(148, 163, 184, 0.5);
-  background: rgba(15, 23, 42, 0.7);
-  color: #e5e7eb;
-  padding: 0.7rem 1.4rem;
-  cursor: pointer;
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease,
-    border-color 0.15s ease;
-  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.9);
-}
-
-.btn.round {
-  border-radius: 9999px;
-}
-
-
-
-.btn.primary {
-  background: linear-gradient(135deg, #a855f7, #ec4899);
-  border-color: rgba(248, 250, 252, 0.6);
-}
-
-.btn:hover:not(:disabled) {
-  transform: scale(1.05) translateY(-1px);
-  background: rgba(30, 64, 175, 0.7);
-  border-color: rgba(248, 250, 252, 0.4);
-}
-
-.btn.primary:hover:not(:disabled) {
-  background: linear-gradient(135deg, #c084fc, #f472b6);
-}
-
-.btn:active:not(:disabled) {
-  transform: scale(0.97) translateY(1px);
-}
-
-.btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-/* mode buttons */
-.mode-buttons {
-  display: flex;
-  gap: 0.5rem;
-  justify-content: center;
-}
-
-.mode-btn {
-  padding: 0.5rem 0.9rem;
-  font-size: 0.8rem;
-  line-height: 1.3;
-  text-align: center;
-}
-
-.mode-btn.active {
-  background: rgba(248, 250, 252, 0.15);
-  border-color: rgba(248, 250, 252, 0.6);
-}
-
-.mode-small {
-  font-size: 0.7rem;
-  color: #9ca3af;
-}
-/* mobile-only modal
-@media (max-width: 768px) {
-  .mode-buttons {
-    position: fixed;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.75rem;
-    z-index: 40;
-  }
-*/
-
-/* ========= Basic reset & global styles ========= */
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  min-height: 100vh;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    sans-serif;
-  background: radial-gradient(circle at top, #020617 0, #020617 60%, #000 100%);
-  color: #e5e7eb;
-  overflow: hidden;
-}
-
-/* ========= Glowing background blobs ========= */
-
-.bg-orbs {
-  position: fixed;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-  z-index: 0;
-}
-.detectionMessege {
-  position: fixed;
-  overflow: hidden;
-  z-index: 0;
-  font-family: "Helvetica";
-  font-size: 190px;
-  font-weight: bold;
-  
-}
-
-.orb {
-  position: absolute;
-  border-radius: 9999px;
-  filter: blur(60px);
-  opacity: 0.3;
-  animation: orbPulse 10s ease-in-out infinite alternate;
-}
-
-.orb-purple {
-  width: 26rem;
-  height: 26rem;
-  background: #a855f7;
-  top: 15%;
-  left: 15%;
-}
-
-.orb-blue {
-  width: 26rem;
-  height: 26rem;
-  background: #38bdf8;
-  bottom: 15%;
-  right: 15%;
-  animation-duration: 12s;
-  animation-delay: 2s;
-}
-
-.orb-pink {
-  width: 18rem;
-  height: 18rem;
-  background: #ec4899;
-  top: 50%;
-  right: 30%;
-  animation-duration: 14s;
-  animation-delay: 4s;
-}
-
-@keyframes orbPulse {
-  0% {
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-  100% {
-    transform: translate3d(20px, -20px, 0) scale(1.05);
-  }
-}
-
-/* ========= App layout ========= */
-
-.app {
-  position: relative;
-  z-index: 1;
-  min-height: 100vh;
-  padding: 2rem 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-/* Header */
-
-.header {
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
-.title {
-  font-size: 3rem;
-  font-weight: 300;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: #f9fafb;
-  margin: 0 0 0.25rem;
-}
-
-.subtitle {
-  margin: 0;
-  font-size: 0.9rem;
-  color: #9ca3af;
-}
-
-/* Main */
-
-.main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.5rem;
-}
-
-/* ========= Lotus container ========= */
-
-.lotus-wrapper {
-  position: relative;
-  width: 22rem;
-  height: 22rem;
-  max-width: 90vw;
-}
-
-/* Webcam video as the bottom circular layer */
-.webcam {
-  display: block;
-}
-
-.lotus-video {
-  position: absolute;
-  inset: 0;              /* fill the wrapper */
-  width: 100%;
-  height: 100%;
-  object-fit: cover;     /* crop nicely into the circle */
-  transform: scaleX(-1); /* mirror like a selfie */
-  border-radius: 9999px; /* circular */
-  filter: brightness(1.05) contrast(1.05);
-  z-index: 1;            /* bottom layer */
-}
-
-/* 3D lotus canvas layer (middle layer, above video) */
-.lotus-container {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 9999px;
-  background: transparent; /* IMPORTANT: no gradient so video shows through */
-  border: 1px solid rgba(148, 163, 184, 0.4);
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7);
-  overflow: hidden;
-  z-index: 2; /* above video, below text */
-}
-
-/* Three.js canvas fits this container */
-.lotus-container canvas {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
-/* Text overlay on top of everything */
-.lotus-overlay {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
-  text-align: center;
-  z-index: 3; /* top layer */
-}
-
-.instruction {
-  font-size: 1.5rem;
-  font-weight: 300;
-  color: #f9fafb;
-  margin: 0 0 0.3rem;
-}
-
-.cycle-text {
-  margin: 0;
-  font-size: 0.9rem;
-  color: #9ca3af;
-}
-
-.face-status {
-  margin-top: 0.75rem;
-  font-size: 0.75rem;
-  color: #94a3b8;
-}
-
-/* ========= Controls ========= */
-
-.controls {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.button-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  justify-content: center;
-}
-
-/* Buttons */
-
-.btn {
-  font: inherit;
-  border-radius: 9999px;
-  border: 1px solid rgba(148, 163, 184, 0.5);
-  background: rgba(15, 23, 42, 0.7);
-  color: #e5e7eb;
-  padding: 0.7rem 1.4rem;
-  cursor: pointer;
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease,
-    border-color 0.15s ease;
-  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.9);
-}
-
-.btn.round {
-  border-radius: 9999px;
-}
-
-
-
-.btn.primary {
-  background: linear-gradient(135deg, #a855f7, #ec4899);
-  border-color: rgba(248, 250, 252, 0.6);
-}
-
-.btn:hover:not(:disabled) {
-  transform: scale(1.05) translateY(-1px);
-  background: rgba(30, 64, 175, 0.7);
-  border-color: rgba(248, 250, 252, 0.4);
-}
-
-.btn.primary:hover:not(:disabled) {
-  background: linear-gradient(135deg, #c084fc, #f472b6);
-}
-
-.btn:active:not(:disabled) {
-  transform: scale(0.97) translateY(1px);
-}
-
-.btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-/* mode buttons */
-.mode-buttons {
-  display: flex;
-  gap: 0.5rem;
-  justify-content: center;
-}
-
-.mode-btn {
-  padding: 0.5rem 0.9rem;
-  font-size: 0.8rem;
-  line-height: 1.3;
-  text-align: center;
-}
-
-.mode-btn.active {
-  background: rgba(248, 250, 252, 0.15);
-  border-color: rgba(248, 250, 252, 0.6);
-}
-
-.mode-small {
-  font-size: 0.7rem;
-  color: #9ca3af;
-}
-/*
-@media (max-width: 768px) {
-  .mode-buttons {
-    position: fixed;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.75rem;
-    z-index: 40;
-  }
-
-  .mode-buttons::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: radical-gradient(circle at center, rgba(15,23,42,0.95),             rgba(15,23,42,0.9));
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    z-index: -1;
-  }
-
-  .mode-buttons .btn {
-    min-width: 9rem;
-  }
-}
-
-*/
-
-/* -------- Universal Full-Screen Mode Selector (mobile + desktop) -------- */
-
-.mode-buttons {
-  position: fixed;
-  inset: 0;                /* full screen */
-  display: none;           /* hidden by default */
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  z-index: 200;            /* above everything */
-}
-
-/* Show when NOT hidden */
-.mode-buttons:not(.hidden) {
-  display: flex;
-}
-
-/* Dimmed background */
-.mode-buttons::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at center,
-    rgba(15, 23, 42, 0.95),
-    rgba(15, 23, 42, 0.92)
-  );
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  z-index: -1;
-}
-
-/* Buttons inside modal */
-.mode-buttons .btn {
-  min-width: 12rem;
-  padding: 1rem 1.5rem;
-  font-size: 1rem;
-}
-
-.mode-buttons {
-  
-  position: fixed;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  z-index: 200;
-  
-  opacity: 0;
-  transition: opacity 0.35s ease;
-  pointer-events: none;
-}
-
-.mode-buttons::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    circle at center,
-    rgba(15, 23, 42, 0.95),
-    rgba(15, 23, 42, 0.9)
-  );
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  z-index: -1;
-}
-
-.mode-buttons.active {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.mode-buttons:not(.hidden) {
-  opacity: 1;
-  pointer-events: auto;
-}
-/* ========= Webcam preview ========= */
-.video-section {
-  margin-top: 0.5rem;
-}
-
-/* Remove the old .webcam style or keep it minimal */
-.webcam {
-  display: block;
-}
-
-/* New style when used inside lotus-wrapper */
-.lotus-video {
-  position: absolute;
-  inset: 0;              /* fill the lotus-wrapper */
-  width: 100%;
-  height: 100%;
-  object-fit: cover;     /* fill the circle nicely */
-  transform: scaleX(-1); /* selfie mirror */
-  border-radius: 9999px; /* keep it circular */
-  filter: brightness(1.05) contrast(1.05);
-  z-index: 1;            /* bottom layer */
-  
-}
-/* Utility */
-
-.hidden {
-  display: none;
-}
-
-/* Larger screens tweak */
-
-@media (min-width: 768px) {
-  .app {
-    padding-top: 3rem;
-  }
-}
-
-
-
-/* When orbs are audio-reactive, let JS control them */
-.orb.reactive {
-  animation: none; /* stop the CSS orbPulse so transforms don't fight */
-  transition: transform 0.18s ease-out, 
-              background-color 0.25s ease-out, 
-              opacity 0.2s ease-out;
-}
-
-
-@media (max-width: 768px) {
-  .controls {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: calc(0.75rem + env(safe-area-inset-bottom));
-    padding: 0.75rem 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.75rem;
-    z-index: 20; /* above the lotus & background orbs */
-    
-    /* Optional but nice: slight backdrop so text is readable */
-    background: linear-gradient(
-      to top,
-      rgba(15, 23, 42, 0.95),
-      rgba(15, 23, 42, 0.6),
-      transparent
-    );
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-  }
-
-  /* Let rows wrap nicely within the fixed bar */
-  .button-row,
-  .mode-buttons {
-    width: 100%;
-    max-width: 480px;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  /* Make sure main content isn’t hidden behind the fixed controls */
-  .main {
-    padding-bottom: 7rem; /* adjust if your controls are taller/shorter */
-  }
-}
-/* dim backgrounds */
-  .mode-buttons::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at center, rgba(15,23,42,0.95),             rgba(15,23,42,0.9));
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    z-index: -1;
-  }
-
-  .mode-buttons .btn {
-    min-width: 9rem;
-  }
-}
-/* ========= Webcam preview ========= */
-
-.video-section {
-  margin-top: 0.5rem;
-}
-
-/* Remove the old .webcam style or keep it minimal */
-.webcam {
-  display: block;
-}
-
-/* New style when used inside lotus-wrapper */
-.lotus-video {
-  position: absolute;
-  inset: 0;              /* fill the lotus-wrapper */
-  width: 100%;
-  height: 100%;
-  object-fit: cover;     /* fill the circle nicely */
-  transform: scaleX(-1); /* selfie mirror */
-  border-radius: 9999px; /* keep it circular */
-  filter: brightness(1.05) contrast(1.05);
-  z-index: 1;            /* bottom layer */
-  
-}
-/* Utility */
-
-.hidden {
-  display: none;
-}
-
-/* Larger screens tweak */
-
-@media (min-width: 768px) {
-  .app {
-    padding-top: 3rem;
-  }
-}
-
-
-
-/* When orbs are audio-reactive, let JS control them */
-.orb.reactive {
-  animation: none; /* stop the CSS orbPulse so transforms don't fight */
-  transition: transform 0.18s ease-out, 
-              background-color 0.25s ease-out, 
-              opacity 0.2s ease-out;
-}
-
-
-@media (max-width: 768px) {
-  .controls {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: calc(0.75rem + env(safe-area-inset-bottom));
-    padding: 0.75rem 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.75rem;
-    z-index: 20; /* above the lotus & background orbs */
-    
-    /* Optional but nice: slight backdrop so text is readable */
-    background: linear-gradient(
-      to top,
-      rgba(15, 23, 42, 0.95),
-      rgba(15, 23, 42, 0.6),
-      transparent
-    );
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-  }
-
-  /* Let rows wrap nicely within the fixed bar */
-  .button-row,
-  .mode-buttons {
-    width: 100%;
-    max-width: 480px;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  /* Make sure main content isn’t hidden behind the fixed controls */
-  .main {
-    padding-bottom: 7rem; /* adjust if your controls are taller/shorter */
-  }
-}
+  font: inherit; font-weight: 500; border-radius: 9999px; border: 1px solid rgba(0, 96, 100, 0.1);
+  background: rgba(255, 255, 255, 0.7); color: #006064; padding: 0.8rem 1.6rem;
+  cursor: pointer; transition: all 0.2s ease; white-space: nowrap;
+}
+.btn:hover:not(:disabled) { background: #fff; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+.btn.primary { background: #006064; color: #fff; border: 1px solid #006064; }
+.btn.primary:hover { background: #00838f; border-color: #00838f; }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.mode-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; }
+.mode-btn { 
+  padding: 0.5rem 1rem; font-size: 0.85rem; background: rgba(255,255,255,0.4); 
+  border: 1px solid rgba(255,255,255,0.6); color: #00838f; cursor: pointer; border-radius: 9999px;
+}
+.mode-btn.active { background: #006064; border-color: #006064; color: #fff; }
+.hidden { display: none; }
