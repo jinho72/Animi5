@@ -1,84 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Animi - Teal Glass</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Our CSS -->
-  <link rel="stylesheet" href="index.css" />
+  <meta charset="UTF-8" />
+  <title>Animi - Teal Glass</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="stylesheet" href="index.css" />
 
 </head>
 <body>
-  <div class="bg-orbs">
-    <div class="orb orb-teal" id="orbPurple"></div>
-    <div class="orb orb-cyan" id="orbBlue"></div>
-    <div class="orb orb-blue" id="orbPink"></div>
-  </div>
-  
+  <div class="bg-orbs">
+    <div class="orb orb-teal" id="orbPurple"></div>
+    <div class="orb orb-cyan" id="orbBlue"></div>
+    <div class="orb orb-blue" id="orbPink"></div>
+  </div>
+  
 
-  <audio id="bgMusic" loop crossorigin="anonymous"></audio>
+  <audio id="bgMusic" loop crossorigin="anonymous"></audio>
 
-  <div id="lotusContainer" class="lotus-container"></div>
+  <div id="lotusContainer" class="lotus-container"></div>
 
-  <div class="app">
-    <header class="header">
-      <h1 class="title">Animi</h1>
-      <p id="subtitle" class="subtitle">Bring Minds, Change Minds</p>
-    </header>
+  <div class="app">
+    <header class="header">
+      <h1 class="title">Animi</h1>
+      <p id="subtitle" class="subtitle">Bring Minds, Change Minds</p>
+    </header>
 
-    <main class="main">
-      <section class="lotus-wrapper">
-        <div class="droplet-layer glass-back fluid-anim-slow"></div>
-        <div class="droplet-layer video-core fluid-anim-main">
-          <video id="webcam" class="webcam-hidden" autoplay playsinline muted></video>
-          <canvas id="output_canvas" class="webcam-canvas"></canvas>
-          <div class="shine-inner"></div>
-        </div>
-        <div class="droplet-layer glass-front fluid-anim-fast">
-          <div class="shine-outer"></div>
-        </div>
+    <main class="main">
+      <section class="lotus-wrapper">
+        <div class="droplet-layer glass-back fluid-anim-slow"></div>
+        <div class="droplet-layer video-core fluid-anim-main">
+          <video id="webcam" class="webcam-hidden" autoplay playsinline muted></video>
+          <canvas id="output_canvas" class="webcam-canvas"></canvas>
+          <div class="shine-inner"></div>
+        </div>
+        <div class="droplet-layer glass-front fluid-anim-fast">
+          <div class="shine-outer"></div>
+        </div>
 
-        <div class="lotus-overlay">
-          <p id="instructionText" class="instruction">Get Ready</p>
-          <p id="cycleText" class="cycle-text"></p>
-          <p id="faceStatus" class="face-status">
-            Click "Enable Camera" to begin.
-          </p>
-        </div>
-      </section>
+        <div class="lotus-overlay">
+          <p id="instructionText" class="instruction">Get Ready</p>
+          <p id="cycleText" class="cycle-text"></p>
+          <p id="faceStatus" class="face-status">
+            Click "Enable Camera" to begin.
+          </p>
+        </div>
+      </section>
 
-      <section class="controls">
-        <div class="button-row">
-          <button id="breathToggleBtn" class="btn round primary">
-            ▶ Start Breathing
-          </button>
-          <button id="settingsToggleBtn" class="btn round">
-            Modes
-          </button>
-          <button id="cameraBtn" class="btn round">
-            Enable Camera
-          </button>
-          <button id="musicBtn" class="btn round">
-            Sound Off
-          </button>
-        </div>
+      <section class="controls">
+        <div class="button-row">
+          <button id="breathToggleBtn" class="btn round primary">
+            ▶ Start Breathing
+          </button>
+          <button id="settingsToggleBtn" class="btn round">
+            Modes
+          </button>
+          <button id="cameraBtn" class="btn round">
+            Enable Camera
+          </button>
+          <button id="musicBtn" class="btn round">
+            Sound Off
+          </button>
+        </div>
 
-        <div id="modeButtons" class="mode-buttons hidden">
-          <button class="btn mode-btn active" data-mode="balance">
-            Balance<br /><span class="mode-small">4–4–4</span>
-          </button>
-          <button class="btn mode-btn" data-mode="calm">
-            Calm<br /><span class="mode-small">4–7–8</span>
-          </button>
-          <button class="btn mode-btn" data-mode="energize">
-            Energize<br /><span class="mode-small">4–4–2</span>
-          </button>
-        </div>
-      </section>
-    </main>
-  </div>
+        <div id="modeButtons" class="mode-buttons hidden">
+          <button class="btn mode-btn active" data-mode="balance">
+            Balance<br /><span class="mode-small">4–4–4</span>
+          </button>
+          <button class="btn mode-btn" data-mode="calm">
+            Calm<br /><span class="mode-small">4–7–8</span>
+          </button>
+          <button class="btn mode-btn" data-mode="energize">
+            Energize<br /><span class="mode-small">4–4–2</span>
+          </button>
+        </div>
+      </section>
+    </main>
+  </div>
 
-  <script type="module" src="index.js"></script>
+  <script type="module" src="index.js"></script>
 
 </body>
 </html>
